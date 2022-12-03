@@ -20,7 +20,7 @@
         {
             "label": "Check Library (Debug)",
             "type": "shell",
-            "command": "cargo check --package base_engine",
+            "command": "cargo check --package graphical_engine",
             "dependsOn": [
                 "General Notice"
             ],
@@ -29,7 +29,7 @@
         {
             "label": "Build Library (Debug)",
             "type": "shell",
-            "command": "cargo build --package base_engine",
+            "command": "cargo build --package graphical_engine",
             "dependsOn": [
                 "General Notice"
             ],
@@ -38,7 +38,7 @@
         {
             "label": "Build Library (Release)",
             "type": "shell",
-            "command": "cargo build --release --package base_engine",
+            "command": "cargo build --release --package graphical_engine",
             "dependsOn": [
                 "General Notice"
             ],
@@ -47,7 +47,7 @@
         {
             "label": "Test Library (Debug)",
             "type": "shell",
-            "command": "cargo test --package base_engine",
+            "command": "cargo test --package graphical_engine",
             "dependsOn": [
                 "General Notice"
             ],
@@ -56,7 +56,7 @@
         {
             "label": "Test Library (Release)",
             "type": "shell",
-            "command": "cargo test --release --package base_engine",
+            "command": "cargo test --release --package graphical_engine",
             "dependsOn": [
                 "General Notice"
             ],
