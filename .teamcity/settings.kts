@@ -47,23 +47,23 @@ object Build : BuildType({
             name = "Build (Debug)"
             type = "cargo"
             executionMode = BuildStep.ExecutionMode.RUN_ON_FAILURE
-            param("cargo-build-package", "platform_linux")
+            param("cargo-build-package", "compute_engine_library")
             param("cargo-test-no-default-features", "true")
             param("cargo-toolchain", "stable")
             param("cargo-verbosity", "--verbose")
-            param("cargo-bench-package", "platform_linux")
+            param("cargo-bench-package", "compute_engine_library")
             param("cargo-command", "build")
         }
         step {
             name = "Build (Release)"
             type = "cargo"
             executionMode = BuildStep.ExecutionMode.RUN_ON_FAILURE
-            param("cargo-build-package", "platform_linux")
+            param("cargo-build-package", "compute_engine_library")
             param("cargo-test-no-default-features", "true")
             param("cargo-build-release", "true")
             param("cargo-toolchain", "stable")
             param("cargo-verbosity", "--verbose")
-            param("cargo-bench-package", "platform_linux")
+            param("cargo-bench-package", "compute_engine_library")
             param("cargo-bench-arguments", "--release")
             param("cargo-command", "build")
         }
@@ -97,7 +97,7 @@ object Test : BuildType({
             type = "cargo"
             executionMode = BuildStep.ExecutionMode.RUN_ON_FAILURE
             param("cargo-test-no-fail-fast", "true")
-            param("cargo-test-package", "platform_linux")
+            param("cargo-test-package", "compute_engine_library")
             param("cargo-test-no-default-features", "true")
             param("cargo-toolchain", "stable")
             param("cargo-verbosity", "--verbose")
@@ -108,7 +108,7 @@ object Test : BuildType({
             type = "cargo"
             executionMode = BuildStep.ExecutionMode.RUN_ON_FAILURE
             param("cargo-test-no-fail-fast", "true")
-            param("cargo-test-package", "platform_linux")
+            param("cargo-test-package", "compute_engine_library")
             param("cargo-test-no-default-features", "true")
             param("cargo-toolchain", "stable")
             param("cargo-verbosity", "--verbose")

@@ -1,5 +1,18 @@
-[workspace]
-members = [
-    "platform/*",
-    "shared"
-]
+[package]
+name = "compute_engine"
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/rust-multiplatform/Base-Engine-Library.git"
+
+[lib]
+crate-type = ["cdylib", "staticlib", "rlib"]
+
+[dependencies]
+base_engine = { git="https://github.com/rust-multiplatform/Base-Engine-Library" }
+vulkano = "0.31.0"
+log = "0.4.0"
+
+# To reduce performance artifacts
+[profile.dev]
+opt-level = 1 

@@ -23,16 +23,10 @@ cache: cargo
 # Tasks
 script:
   # Debug
-  - cargo check --verbose --package shared
-  - cargo build --verbose --package shared
-  - cargo test --verbose --no-default-features --no-fail-fast --package shared
-  - cargo check --verbose --package platform_${TRAVIS_OS_NAME}
-  - cargo build --verbose --package platform_${TRAVIS_OS_NAME}
-  - cargo test --verbose --no-default-features --no-fail-fast --package platform_${TRAVIS_OS_NAME}
+  - cargo check --verbose --package compute_engine_library
+  - cargo build --verbose --package compute_engine_library
+  - cargo test --verbose --no-default-features --no-fail-fast --package compute_engine_library
   # Release
-  - cargo check --release --verbose --package shared
-  - cargo build --release --verbose --package shared
-  - cargo test --release --verbose --no-default-features --no-fail-fast --package shared
-  - cargo check --release --verbose --package platform_${TRAVIS_OS_NAME}
-  - cargo build --release --verbose --package platform_${TRAVIS_OS_NAME}
-  - cargo test --release --verbose --no-default-features --no-fail-fast --package platform_${TRAVIS_OS_NAME}
+  - cargo check --release --verbose --package compute_engine_library
+  - cargo build --release --verbose --package compute_engine_library
+  - cargo test --release --verbose --no-default-features --no-fail-fast --package compute_engine_library
