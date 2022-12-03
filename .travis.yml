@@ -23,10 +23,10 @@ cache: cargo
 # Tasks
 script:
   # Debug
-  - cargo check --verbose --package compute_engine_library
-  - cargo build --verbose --package compute_engine_library
-  - cargo test --verbose --no-default-features --no-fail-fast --package compute_engine_library
+  - cargo check --verbose --package graphical_engine_library
+  - cargo build --verbose --package graphical_engine_library
+  - cargo test --verbose --no-default-features --no-fail-fast --package graphical_engine_library
   # Release
-  - cargo check --release --verbose --package compute_engine_library
-  - cargo build --release --verbose --package compute_engine_library
-  - cargo test --release --verbose --no-default-features --no-fail-fast --package compute_engine_library
+  - cargo check --release --verbose --package graphical_engine_library
+  - cargo build --release --verbose --package graphical_engine_library
+  - cargo test --release --verbose --no-default-features --no-fail-fast --package graphical_engine_library

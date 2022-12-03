@@ -1,9 +1,9 @@
 [package]
-name = "compute_engine"
+name = "graphical_engine"
 version = "0.1.0"
 edition = "2021"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/rust-multiplatform/Base-Engine-Library.git"
+repository = "https://github.com/rust-multiplatform/Graphical-Engine-Library.git"
 
 [lib]
 crate-type = ["cdylib", "staticlib", "rlib"]
@@ -11,7 +11,11 @@ crate-type = ["cdylib", "staticlib", "rlib"]
 [dependencies]
 base_engine = { git="https://github.com/rust-multiplatform/Base-Engine-Library" }
 vulkano = "0.31.0"
+vulkano-win = "0.31.0"
+vulkano-shaders = "0.31.0"
 log = "0.4.0"
+winit = "0.27.0"
+bytemuck = "1.12.1"
 
 # To reduce performance artifacts
 [profile.dev]

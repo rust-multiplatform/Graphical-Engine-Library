@@ -14,10 +14,10 @@ orbs:
 workflows:
   build:
     jobs:
-      - compute_engine_library
+      - graphical_engine_library
 
 jobs:
-  compute_engine_library:
+  graphical_engine_library:
     docker:
       - image: cimg/rust:1.65
 
@@ -28,21 +28,21 @@ jobs:
       # Build
       - run:
           name: Build (debug)
-          command: cargo build --package compute_engine_library
+          command: cargo build --package graphical_engine_library
       - run:
           name: Build (release)
-          command: cargo build --package compute_engine_library --release
+          command: cargo build --package graphical_engine_library --release
 
       # Tests
       - run:
           name: Run Tests (debug)
-          command: cargo test --no-default-features --no-fail-fast --package compute_engine_library
+          command: cargo test --no-default-features --no-fail-fast --package graphical_engine_library
       - run:
           name: Run Tests (release)
-          command: cargo test --no-default-features --no-fail-fast --package compute_engine_library --release
+          command: cargo test --no-default-features --no-fail-fast --package graphical_engine_library --release
 
       # Upload Artifacts
       - store_artifacts:
-          path: target/debug/compute_engine_library
+          path: target/debug/graphical_engine_library
       - store_artifacts:
-          path: target/release/compute_engine_library
+          path: target/release/graphical_engine_library
