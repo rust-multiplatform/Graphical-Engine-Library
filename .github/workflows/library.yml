@@ -10,12 +10,8 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  platform_linux:
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        target: [x86_64-unknown-linux-gnu]
-    runs-on: ${{ matrix.os }}
+  graphical_engine:
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -25,7 +21,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: target
-          key: library-${{ runner.os }}-${{ matrix.target }}-target
+          key: library-target
 
       - name: Install GCC and dependencies
         run: sudo apt-get install -y build-essential gcc gcc-multilib
@@ -33,31 +29,26 @@ jobs:
       - name: Install Rust
         run: curl https://sh.rustup.rs -sSf | sh -s -- --default-toolchain stable --profile minimal -y
 
-      - name: Install target ${{ matrix.target }}
-        run: rustup target add ${{ matrix.target }}
+      - name: Install target x86_64-unknown-linux-gnu
+        run: rustup target add x86_64-unknown-linux-gnu
 
       - name: Check
-        run: cargo check --verbose --package graphical_engine_library --target ${{ matrix.target }}
+        run: cargo check --verbose --package graphical_engine --target x86_64-unknown-linux-gnu
       - name: Build (Debug)
-        run: cargo build --verbose --package graphical_engine_library --target ${{ matrix.target }}
+        run: cargo build --verbose --package graphical_engine --target x86_64-unknown-linux-gnu
       - name: Build (Release)
-        run: cargo build --verbose --package graphical_engine_library --target ${{ matrix.target }} --release
+        run: cargo build --verbose --package graphical_engine --target x86_64-unknown-linux-gnu --release
       - name: Run Tests (Debug)
-        if: ${{ matrix.target == 'x86_64-unknown-linux-gnu' }} # Testing can only be done on the host architecture. It should work across all architectures though!
-        run: cargo test --verbose --package graphical_engine_library --no-default-features --no-fail-fast --target ${{ matrix.target }}
+        run: cargo test --verbose --package graphical_engine --no-default-features --no-fail-fast --target x86_64-unknown-linux-gnu
         continue-on-error: true
       - name: Run Tests (Release)
-        if: ${{ matrix.target == 'x86_64-unknown-linux-gnu' }} # Testing can only be done on the host architecture. It should work across all architectures though!
-        run: cargo test --verbose --package graphical_engine_library --no-default-features --no-fail-fast --target ${{ matrix.target }} --release
+        run: cargo test --verbose --package graphical_engine --no-default-features --no-fail-fast --target x86_64-unknown-linux-gnu --release
         continue-on-error: true
 
       - uses: actions/upload-artifact@v3
         with:
-          name: "graphical_engine_library_debug_${{ matrix.target }}"
-          path: target/${{ matrix.target }}/debug/graphical_engine_library
-          if-no-files-found: error
-      - uses: actions/upload-artifact@v3
-        with:
-          name: "graphical_engine_library_release_${{ matrix.target }}"
-          path: target/${{ matrix.target }}/release/graphical_engine_library
+          name: "graphical_engine"
+          path: |
+            target/debug/graphical_engine.so
+            target/release/graphical_engine.so
           if-no-files-found: error

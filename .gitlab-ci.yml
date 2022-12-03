@@ -3,14 +3,14 @@ image: "rust:latest"
 check:cargo:
   script:
     - rustc --version && cargo --version  # Print version info for debugging
-    - cargo check --verbose --package compute_engine_library
+    - cargo check --verbose --package base_engine_library
 
 build:cargo:
   script:
     - rustc --version && cargo --version  # Print version info for debugging
-    - cargo build --verbose --package compute_engine_library
+    - cargo build --verbose --package base_engine_library
 
 test:cargo:
   script:
     - rustc --version && cargo --version  # Print version info for debugging
-    - cargo test --verbose --no-default-features --no-fail-fast --package compute_engine_library
+    - cargo test --verbose --no-default-features --no-fail-fast --package base_engine_library

@@ -1,5 +1,5 @@
 stages:
-  - stage: Graphical Engine Library
+  - stage: GraphicalEngineLibrary
     dependsOn: [] # Clears dependencies and allows parallel execution
     pool: 
       vmImage: ubuntu-latest
@@ -13,7 +13,7 @@ stages:
           - bash: rustc --version && cargo --version
             displayName: Print Rust & Cargo versions
 
-          - bash: cargo check --verbose --package graphical_engine_library
+          - bash: cargo check --verbose --package graphical_engine
             displayName: Cargo Check (Debug)
 
       - job: Cargo_Check_Release
@@ -25,7 +25,7 @@ stages:
           - bash: rustc --version && cargo --version
             displayName: Print Rust & Cargo versions
 
-          - bash: cargo check --verbose --package graphical_engine_library --release
+          - bash: cargo check --verbose --package graphical_engine --release
             displayName: Cargo Check (Release)
 
       - job: Cargo_Build_Debug
@@ -37,7 +37,7 @@ stages:
           - bash: rustc --version && cargo --version
             displayName: Print Rust & Cargo versions
 
-          - bash: cargo build --verbose --package graphical_engine_library
+          - bash: cargo build --verbose --package graphical_engine
             displayName: Cargo Build (Debug)
           
           - publish: target/
@@ -52,7 +52,7 @@ stages:
           - bash: rustc --version && cargo --version
             displayName: Print Rust & Cargo versions
 
-          - bash: cargo build --verbose --package graphical_engine_library --release
+          - bash: cargo build --verbose --package graphical_engine --release
             displayName: Cargo Build (Release)
 
           - publish: target/
@@ -67,7 +67,7 @@ stages:
           - bash: rustc --version && cargo --version
             displayName: Print Rust & Cargo versions
 
-          - bash: cargo test --verbose --no-default-features --no-fail-fast --package graphical_engine_library
+          - bash: cargo test --verbose --no-default-features --no-fail-fast --package graphical_engine
             displayName: Cargo Test (Debug)
 
       - job: Cargo_Test_Release
@@ -79,5 +79,5 @@ stages:
           - bash: rustc --version && cargo --version
             displayName: Print Rust & Cargo versions
 
-          - bash: cargo test --verbose --no-default-features --no-fail-fast --package graphical_engine_library --release
+          - bash: cargo test --verbose --no-default-features --no-fail-fast --package graphical_engine --release
             displayName: Cargo Test (Release)
