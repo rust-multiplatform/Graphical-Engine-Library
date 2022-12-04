@@ -61,6 +61,7 @@ object Build : BuildType({
             param("cargo-build-package", "graphical_engine")
             param("cargo-test-no-default-features", "true")
             param("cargo-build-release", "true")
+            param("cargo-test-no-default-features", "true")
             param("cargo-toolchain", "stable")
             param("cargo-verbosity", "--verbose")
             param("cargo-bench-package", "graphical_engine")
