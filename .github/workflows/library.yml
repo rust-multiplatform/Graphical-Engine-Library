@@ -45,6 +45,9 @@ jobs:
         run: cargo test --verbose --package graphical_engine --no-default-features --no-fail-fast --target x86_64-unknown-linux-gnu --release
         continue-on-error: true
 
+      - name: Debug
+        run: ls -al -R target/
+
       - uses: actions/upload-artifact@v3
         with:
           name: "graphical_engine"
