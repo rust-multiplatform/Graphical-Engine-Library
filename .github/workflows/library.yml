@@ -49,6 +49,12 @@ jobs:
         with:
           name: "graphical_engine"
           path: |
-            target/debug/graphical_engine.so
-            target/release/graphical_engine.so
+            target/debug/libgraphical_engine.a
+            target/debug/libgraphical_engine.d
+            target/debug/libgraphical_engine.rlib
+            target/debug/libgraphical_engine.so
+            target/release/libgraphical_engine.a
+            target/release/libgraphical_engine.d
+            target/release/libgraphical_engine.rlib
+            target/release/libgraphical_engine.so
           if-no-files-found: error
