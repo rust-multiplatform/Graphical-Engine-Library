@@ -29,6 +29,8 @@ jobs:
         key: cargo-coverage-home
     
     - uses: actions/checkout@v3
+   with:
+      submodules: recursive
 
     # Setup nightly toolchain
     - uses: actions-rs/toolchain@v1

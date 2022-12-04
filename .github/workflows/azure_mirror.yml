@@ -10,6 +10,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+      with:
+        submodules: recursive
     - run: git fetch --unshallow origin
     - run: git fetch --prune --all
     - run: git push --prune "https://me:$AZURE_TOKEN@dev.azure.com/Rust-Multiplatform/Graphical%20Engine%20Library/_git/Graphical%20Engine%20Library" +refs/remotes/origin/*:refs/heads/* +refs/tags/*:refs/tags/*
