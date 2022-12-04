@@ -34,6 +34,7 @@ pub struct GraphicalEngine {
 }
 
 impl GraphicalEngine {
+    /// Creates a new instance of the `GraphicalEngine`.
     pub fn make_instance() -> Arc<Instance> {
         log::debug!("GraphicalEngine::make_instance");
 
