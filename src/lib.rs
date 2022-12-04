@@ -69,7 +69,7 @@ impl GraphicalEngine {
     fn retrieve_required_instance_extensions(library: &VulkanLibrary) -> InstanceExtensions {
         log::debug!("GraphicalEngine::retrieve_required_instance_extensions");
 
-        vulkano_win::required_extensions(&library)
+        vulkano_win::required_extensions(library)
     }
 
     /// Returns the required device extensions.
@@ -334,13 +334,13 @@ impl GraphicalEngine {
 
 impl BaseEngine for GraphicalEngine {
     fn compute(&self, operation: &dyn (Fn(&Self) -> PrimaryAutoCommandBuffer)) {
-        let command_buffer = operation(&self);
+        let command_buffer = operation(self);
 
         #[cfg(debug_assertions)]
         let start_fence = Instant::now();
 
         command_buffer
-            .execute(self.get_logical_device().get_first_queue().clone())
+            .execute(self.get_logical_device().get_first_queue())
             .unwrap()
             .then_signal_fence_and_flush()
             .unwrap()
