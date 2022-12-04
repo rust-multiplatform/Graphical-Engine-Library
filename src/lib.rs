@@ -336,6 +336,7 @@ impl GraphicalEngine {
 }
 
 impl BaseEngine for GraphicalEngine {
+    /// Runs compute operations on the `GraphicalEngine`.
     fn compute(&self, operation: &dyn (Fn(&Self) -> PrimaryAutoCommandBuffer)) {
         let command_buffer = operation(self);
 
@@ -360,10 +361,12 @@ impl BaseEngine for GraphicalEngine {
         }
     }
 
+    /// Returns the `Instance` Arc.
     fn get_instance(&self) -> Arc<Instance> {
         self.instance.clone()
     }
 
+    /// Returns the `LogicalDevice` Arc.
     fn get_logical_device(&self) -> Arc<LogicalDevice> {
         self.logical_device.clone()
     }
