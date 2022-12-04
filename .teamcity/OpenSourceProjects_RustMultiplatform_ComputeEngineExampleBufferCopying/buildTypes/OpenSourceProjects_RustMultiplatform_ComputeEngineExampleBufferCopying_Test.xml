@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://www.jetbrains.com/teamcity/schemas/2021.1/project-config.xsd">
+  <name>Test</name>
+  <description />
+  <settings>
+    <options>
+      <option name="allowExternalStatus" value="true" />
+      <option name="artifactRules" value="target/**/*" />
+    </options>
+    <parameters />
+    <build-runners>
+      <runner id="RUNNER_1" name="Test (Debug)" type="cargo">
+        <parameters>
+          <param name="cargo-command" value="test" />
+          <param name="cargo-test-no-default-features" value="true" />
+          <param name="cargo-test-no-fail-fast" value="true" />
+          <param name="cargo-test-package" value="graphical_engine" />
+          <param name="cargo-toolchain" value="stable" />
+          <param name="cargo-verbosity" value="--verbose" />
+          <param name="teamcity.step.mode" value="execute_if_failed" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_2" name="Test (Release)" type="cargo">
+        <parameters>
+          <param name="cargo-command" value="test" />
+          <param name="cargo-test-no-default-features" value="true" />
+          <param name="cargo-test-no-fail-fast" value="true" />
+          <param name="cargo-test-package" value="graphical_engine" />
+          <param name="cargo-test-release" value="true" />
+          <param name="cargo-toolchain" value="stable" />
+          <param name="cargo-verbosity" value="--verbose" />
+          <param name="teamcity.step.mode" value="execute_if_failed" />
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings>
+      <vcs-entry-ref root-id="OpenSourceProjects_RustMultiplatform_ComputeEngineExampleBufferCopying_HttpsGithubComRustMultiplatformGraphicalEngineLibraryRefsHeadsMain" />
+    </vcs-settings>
+    <requirements />
+    <build-triggers>
+      <build-trigger id="TRIGGER_1" type="vcsTrigger">
+        <parameters>
+          <param name="branchFilter" value="+:*" />
+          <param name="enableQueueOptimization" value="true" />
+          <param name="quietPeriodMode" value="DO_NOT_USE" />
+        </parameters>
+      </build-trigger>
+      <build-trigger id="TRIGGER_2" type="schedulingTrigger">
+        <parameters>
+          <param name="branchFilter" value="+:*" />
+          <param name="cronExpression_dm" value="*" />
+          <param name="cronExpression_dw" value="?" />
+          <param name="cronExpression_hour" value="*" />
+          <param name="cronExpression_min" value="0" />
+          <param name="cronExpression_month" value="*" />
+          <param name="cronExpression_sec" value="0" />
+          <param name="cronExpression_year" value="*" />
+          <param name="dayOfWeek" value="Sunday" />
+          <param name="enableQueueOptimization" value="true" />
+          <param name="hour" value="3" />
+          <param name="minute" value="0" />
+          <param name="promoteWatchedBuild" value="true" />
+          <param name="revisionRule" value="lastFinished" />
+          <param name="revisionRuleBuildBranch" value="+:&lt;default&gt;" />
+          <param name="schedulingPolicy" value="daily" />
+          <param name="timezone" value="SERVER" />
+          <param name="triggerBuildIfWatchedBuildChanges" value="" />
+          <param name="triggerBuildWithPendingChangesOnly" value="true" />
+        </parameters>
+      </build-trigger>
+    </build-triggers>
+    <cleanup />
+  </settings>
+</build-type>
+
