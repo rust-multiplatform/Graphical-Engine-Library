@@ -1,8 +1,5 @@
 #![deny(clippy::all)]
 
-mod vertex;
-pub use vertex::*;
-
 // Re-Export Base-Engine
 pub use base_engine::*;
 
