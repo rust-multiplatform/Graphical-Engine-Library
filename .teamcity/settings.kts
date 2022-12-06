@@ -28,11 +28,11 @@ version = "2022.10"
 
 project {
 
-    buildType(OpenSourceProjects_RustMultiplatform_ComputeEngineTemplate_Build)
-    buildType(OpenSourceProjects_RustMultiplatform_ComputeEngineTemplate_Test)
+    buildType(OpenSourceProjects_RustMultiplatform_GraphicalEngineLibrary_Build)
+    buildType(OpenSourceProjects_RustMultiplatform_GraphicalEngineLibrary_Test)
 }
 
-object OpenSourceProjects_RustMultiplatform_ComputeEngineTemplate_Build : BuildType({
+object OpenSourceProjects_RustMultiplatform_GraphicalEngineLibrary_Build : BuildType({
     id("Build")
     name = "Build"
 
@@ -82,7 +82,7 @@ object OpenSourceProjects_RustMultiplatform_ComputeEngineTemplate_Build : BuildT
     }
 })
 
-object OpenSourceProjects_RustMultiplatform_ComputeEngineTemplate_Test : BuildType({
+object OpenSourceProjects_RustMultiplatform_GraphicalEngineLibrary_Test : BuildType({
     id("Test")
     name = "Test"
 
