@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        repository: [rust-multiplatform/Windowing-Template, rust-multiplatform/SlintUI-Template, rust-multiplatform/Base-Engine-Library, rust-multiplatform/Bevy-Template, rust-multiplatform/Graphical-Engine-Template, rust-multiplatform/Compute-Engine-Template]
+        repository: [rust-multiplatform/Graphical-Engine-Example-Basic-Triangle]
 
     steps:
       - name: Merge upstream
