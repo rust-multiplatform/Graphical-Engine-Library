@@ -1,16 +1,16 @@
 #![deny(clippy::all)]
 
 // Re-Export Base-Engine
-pub use base_engine::*;
+pub use base_engine_library::*;
 
 use std::sync::Arc;
 use std::time::Instant;
 
 use vulkano::{
-    command_buffer::{PrimaryAutoCommandBuffer, PrimaryCommandBuffer},
+    command_buffer::{PrimaryAutoCommandBuffer, PrimaryCommandBufferAbstract},
     device::{
         physical::PhysicalDevice, Device, DeviceCreateInfo, DeviceExtensions, Queue,
-        QueueCreateInfo,
+        QueueCreateInfo, QueueFlags,
     },
     image::{view::ImageView, ImageUsage, SwapchainImage},
     instance::InstanceExtensions,
@@ -20,14 +20,13 @@ use vulkano::{
     sync::GpuFuture,
     VulkanLibrary,
 };
-use winit::window::Window;
 
 pub struct GraphicalEngine {
     instance: Arc<Instance>,
     logical_device: Arc<LogicalDevice>,
-    window: Arc<Surface<Window>>,
-    swap_chain: Arc<Swapchain<Window>>,
-    swap_chain_images: Vec<Arc<SwapchainImage<Window>>>,
+    window: Arc<Surface>,
+    swap_chain: Arc<Swapchain>,
+    swap_chain_images: Vec<Arc<SwapchainImage>>,
 }
 
 impl GraphicalEngine {
@@ -42,7 +41,7 @@ impl GraphicalEngine {
     }
 
     /// Creates a `GraphicalEngine` instance and initializes everything needed for graphical tasks.
-    pub fn new(instance: Arc<Instance>, window: Arc<Surface<Window>>) -> Self {
+    pub fn new(instance: Arc<Instance>, window: Arc<Surface>) -> Self {
         log_init();
         log::debug!("GraphicalEngine::startup");
 
@@ -105,7 +104,7 @@ impl GraphicalEngine {
     /// Returns a tuple of the best `PhysicalDevice` with the best `QueueFamily` index.
     fn get_physical_device(
         instance: Arc<Instance>,
-        window: Arc<Surface<Window>>,
+        window: Arc<Surface>,
     ) -> (Arc<PhysicalDevice>, u32) {
         log::debug!("GraphicalEngine::get_physical_device");
 
@@ -117,7 +116,7 @@ impl GraphicalEngine {
                 physical_device
                     .queue_family_properties()
                     .iter()
-                    .any(|queue_family| queue_family.queue_flags.graphics)
+                    .any(|queue_family| queue_family.queue_flags.contains(QueueFlags::GRAPHICS))
             })
             // Filter out any device that doesn't support ur required device extensions
             .filter(|physical_device: &Arc<PhysicalDevice>| {
@@ -158,7 +157,7 @@ impl GraphicalEngine {
             .queue_family_properties()
             .iter()
             .enumerate()
-            .position(|(_, q)| q.queue_flags.graphics) // Find a compute capable queue family
+            .position(|(_, q)| q.queue_flags.contains(QueueFlags::GRAPHICS)) // Find a compute capable queue family
             .expect("no suitable queue family found") as u32;
 
         log::debug!("Queue family index: {}", queue_family_index);
@@ -195,23 +194,20 @@ impl GraphicalEngine {
     /// Vulkan uses `Swapchain`s to store images while they are still ready and swaps them out once a new image is ready to be displayed (i.e. finished rendering).
     fn create_swap_chain(
         logical_device: Arc<LogicalDevice>,
-        window: Arc<Surface<Window>>,
-    ) -> (Arc<Swapchain<Window>>, Vec<Arc<SwapchainImage<Window>>>) {
+        window: Arc<Surface>,
+    ) -> (Arc<Swapchain>, Vec<Arc<SwapchainImage>>) {
         // Get surface capabilities
         let capabilities = logical_device
             .get_physical_device()
             .surface_capabilities(&window, Default::default())
             .expect("failed to get surface capabilities");
 
-        // Get surface dimensions
-        let dimensions = window.window().inner_size();
-
         // Get alphas
         let composite_alpha = capabilities
             .supported_composite_alpha
-            .iter()
+            .into_iter()
             .next()
-            .expect("no composite alpha mode supported");
+            .expect("no composite alpha found!");
 
         // Get image format
         let image_format = Some(
@@ -232,12 +228,9 @@ impl GraphicalEngine {
                 // Format of the images
                 image_format,
                 // Dimensions of the images
-                image_extent: dimensions.into(),
+                image_extent: [0, 0],
                 // Usage of the images
-                image_usage: ImageUsage {
-                    color_attachment: true,
-                    ..Default::default()
-                },
+                image_usage: ImageUsage::COLOR_ATTACHMENT,
                 // Alpha of the images
                 composite_alpha,
                 ..Default::default()
@@ -255,11 +248,9 @@ impl GraphicalEngine {
     ) -> Option<Vec<Arc<Framebuffer>>> {
         log::debug!("GraphicalEngine::recreate_swap_chain");
 
-        let new_dimensions = self.window.window().inner_size();
-
         let (new_swapchain, new_images) =
             match self.get_swap_chain().recreate(SwapchainCreateInfo {
-                image_extent: new_dimensions.into(),
+                image_extent: [0, 0],
                 ..self.get_swap_chain().create_info()
             }) {
                 Ok(r) => r,
@@ -317,17 +308,17 @@ impl GraphicalEngine {
     }
 
     /// Returns the `EngineWindow`
-    pub fn get_window(&self) -> Arc<Surface<Window>> {
+    pub fn get_window(&self) -> Arc<Surface> {
         self.window.clone()
     }
 
     /// Returns the `Swapchain`
-    pub fn get_swap_chain(&self) -> Arc<Swapchain<Window>> {
+    pub fn get_swap_chain(&self) -> Arc<Swapchain> {
         self.swap_chain.clone()
     }
 
     /// Returns the `SwapchainImage`s
-    pub fn get_swap_chain_images(&self) -> Vec<Arc<SwapchainImage<Window>>> {
+    pub fn get_swap_chain_images(&self) -> Vec<Arc<SwapchainImage>> {
         self.swap_chain_images.clone()
     }
 }

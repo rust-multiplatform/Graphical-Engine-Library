@@ -9,7 +9,7 @@ repository = "https://github.com/rust-multiplatform/Graphical-Engine-Library.git
 crate-type = ["cdylib", "staticlib", "rlib"]
 
 [dependencies]
-base_engine = { path = "./Base-Engine-Library" }
+base_engine_library = { path = "./Base-Engine-Library" }
 vulkano = "0.33"
 vulkano-win = "0.33"
 vulkano-shaders = "0.33"
