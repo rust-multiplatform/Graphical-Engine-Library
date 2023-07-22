@@ -12,6 +12,6 @@ crate-type = ["cdylib", "staticlib", "rlib"]
 base_engine = { path = "./Base-Engine-Library" }
 vulkano = "0.31.0"
 vulkano-win = "0.31.0"
-vulkano-shaders = "0.31.0"
+vulkano-shaders = "0.33.0"
 log = "0.4.0"
 winit = "0.27.0"
